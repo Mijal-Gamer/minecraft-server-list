@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Server</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0e1117 0%, #1a1d23 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 10px;
+    animation: fadeIn 1s ease;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle at 20% 80%, rgba(229,57,53,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(67,160,71,0.1) 0%, transparent 50%);
+    pointer-events: none;
+    animation: float 10s ease-in-out infinite;
+  }
+  .login-section {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    min-height: 60vh; animation: fadeIn 1s ease;
+  }
+  .login-section h2 { font-size: 2em; margin-bottom: 30px; color: #e0e0e0; }
+  .role-button {
+    background: linear-gradient(45deg,#e53935,#ff6b6b);
+    color:white; border:none; padding:15px 30px;
+    margin:10px; border-radius:12px; font-size:1.2em; font-weight:600;
+    cursor:pointer; transition:all 0.3s ease;
+    box-shadow:0 4px 15px rgba(229,57,53,0.3);
+  }
+  .role-button:hover { transform:scale(1.05); box-shadow:0 6px 20px rgba(229,57,53,0.5); }
+  .role-button.customer { background:linear-gradient(45deg,#43a047,#66bb6a); }
+  .role-button.customer:hover { box-shadow:0 6px 20px rgba(67,160,71,0.5); }
+
+  .main-content { display:none; flex-direction:column; align-items:center; width:100%; }
+
+  h1 {
+    background:linear-gradient(45deg,#e53935,#ff6b6b);
+    padding:15px 30px; border-radius:16px;
+    color:white; font-weight:700;
+    box-shadow:0 8px 32px rgba(229,57,53,0.4);
+    animation:popIn 0.8s ease; margin-bottom:30px;
+    position:relative; z-index:1;
+  }
+  
+  table {
+    border-collapse:collapse; width:90%; max-width:800px;
+    margin-top:25px; border-radius:16px; overflow:hidden;
+    background:rgba(28,31,38,0.95); backdrop-filter:blur(15px);
+    box-shadow:0 12px 40px rgba(0,0,0,0.5);
+  }
+  th, td { text-align:center; padding:15px; }
+  th {
+    background:linear-gradient(45deg,#272b33,#3a3f4b);
+    font-weight:700; color:#e0e0e0;
+  }
+  tr:nth-child(even) { background-color:rgba(33,37,45,0.8); }
+  tr:hover { background-color:rgba(45,50,60,0.9); transform:scale(1.02); }
+
+  .status { font-weight:bold; padding:6px 14px; border-radius:12px; color:white; cursor:pointer; }
+  .belum { background:linear-gradient(45deg,#e53935,#ff5252); }
+  .lunas { background:linear-gradient(45deg,#43a047,#66bb6a); }
+
+  @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
+  @keyframes popIn { from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;} }
+  @keyframes bounce { 0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-5px);}60%{transform:translateY(-3px);} }
+</style>
+</head>
+<body>
+
+<div class="login-section" id="loginSection">
+  <h2>Pilih Peran Anda</h2>
+  <button class="role-button customer" onclick="selectRole('customer')">Customer</button>
+  <button class="role-button" onclick="selectRole('owner')">Owner</button>
+</div>
+
+<div class="main-content" id="mainContent">
+  <h1>Server Minecraft</h1>
+
+  <table id="paymentTable">
+    <tr>
+      <th>Nama</th>
+      <th>Status</th>
+      <th>Nominal Pembayaran</th>
+      <th>Tanggal Bayar</th>
+    </tr>
+    <tr><td>Mas Akhdan</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Mas Bima</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Mas haffiyan NEKOHA</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Pandya</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Vian</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Zildan</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Mas Fathan</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>ALIP</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Azka Ackerman</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Baim</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Desta</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Farzan</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>harris</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Irsyad</td><td><span class="status lunas">Lunas</span></td><td>20K</td><td>20/10/2025</td></tr>
+    <tr><td>Hanif</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Rafa</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+    <tr><td>Abyan</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
+  </table>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
+
+  // Firebase config kamu
+  const firebaseConfig = {
+    apiKey: "AIzaSyA3kvSdkeaC4FzjF1Yz299z5NvTKzLAjW8",
+    authDomain: "list-server-abidin.firebaseapp.com",
+    databaseURL: "https://list-server-abidin-default-rtdb.firebaseio.com",
+    projectId: "list-server-abidin",
+    storageBucket: "list-server-abidin.firebasestorage.app",
+    messagingSenderId: "554773600327",
+    appId: "1:554773600327:web:714ccf4053331e91fdf962",
+    measurementId: "G-KTZFKJK355"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getDatabase(app);
+
+  let userRole = '';
+
+  window.selectRole = function(role) {
+    if (role === 'owner') {
+      const password = prompt('Masukkan password Owner:');
+      if (password !== '1234') {
+        alert('Password salah!');
+        return;
+      }
+    }
+    userRole = role;
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'flex';
+  }
+
+  const tableRef = ref(db, 'payments');
+  onValue(tableRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      const rows = document.querySelectorAll('#paymentTable tr:not(:first-child)');
+      rows.forEach((row, index) => {
+        const item = data[index];
+        if (item) {
+          const status = row.children[1].querySelector('.status');
+          status.textContent = item.status;
+          status.className = 'status ' + item.statusClass;
+          row.children[2].textContent = item.nominal;
+          row.children[3].textContent = item.date;
+        }
+      });
+    }
+  });
+
+  function saveToFirebase() {
+    const rows = document.querySelectorAll('#paymentTable tr:not(:first-child)');
+    const data = Array.from(rows).map(row => {
+      const status = row.children[1].querySelector('.status');
+      return {
+        status: status.textContent,
+        statusClass: status.classList.contains('lunas') ? 'lunas' : 'belum',
+        nominal: row.children[2].textContent,
+        date: row.children[3].textContent
+      };
+    });
+    set(tableRef, data);
+  }
+
+  document.querySelectorAll('.status').forEach(el => {
+    el.addEventListener('click', (event) => {
+      const status = event.target;
+      const row = status.closest('tr');
+      const nominalCell = row.children[2];
+      const dateCell = row.children[3];
+
+      if (userRole === 'customer') {
+        alert('Sebagai Customer, Anda hanya dapat melihat status. Hubungi Owner untuk perubahan.');
+        return;
+      }
+
+      if (status.classList.contains('belum')) {
+        const nominal = prompt('Masukkan nominal pembayaran (contoh: 10K):', '10K');
+        if (nominal === null) return;
+        const date = prompt('Masukkan tanggal pembayaran (DD/MM/YYYY):', new Date().toLocaleDateString('id-ID'));
+        if (date === null) return;
+
+        status.textContent = 'Lunas';
+        status.classList.remove('belum');
+        status.classList.add('lunas');
+        nominalCell.textContent = nominal;
+        dateCell.textContent = date;
+      } else if (status.classList.contains('lunas')) {
+        status.textContent = 'Blm bayar';
+        status.classList.remove('lunas');
+        status.classList.add('belum');
+        nominalCell.textContent = '-';
+        dateCell.textContent = '-';
+      }
+
+      saveToFirebase();
+    });
+  });
+</script>
+
+</body>
+</html>

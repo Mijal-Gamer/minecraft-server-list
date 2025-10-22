@@ -128,7 +128,7 @@
   const firebaseConfig = {
     apiKey: "AIzaSyA3kvSdkeaC4FzjF1Yz299z5NvTKzLAjW8",
     authDomain: "list-server-abidin.firebaseapp.com",
-    databaseURL: "https://list-server-abidin-default-rtdb.firebaseio.com",
+    databaseURL: "https://list-server-abidin-default-rtdb.firebaseio.com/",
     projectId: "list-server-abidin",
     storageBucket: "list-server-abidin.firebasestorage.app",
     messagingSenderId: "554773600327",
@@ -153,24 +153,39 @@
     userRole = role;
     document.getElementById('loginSection').style.display = 'none';
     document.getElementById('mainContent').style.display = 'flex';
-  }
+  };
 
   const tableRef = ref(db, 'payments');
+
+  // 🔹 Perbaikan: Buat data awal jika database masih kosong
   onValue(tableRef, (snapshot) => {
     const data = snapshot.val();
-    if (data) {
-      const rows = document.querySelectorAll('#paymentTable tr:not(:first-child)');
-      rows.forEach((row, index) => {
-        const item = data[index];
-        if (item) {
-          const status = row.children[1].querySelector('.status');
-          status.textContent = item.status;
-          status.className = 'status ' + item.statusClass;
-          row.children[2].textContent = item.nominal;
-          row.children[3].textContent = item.date;
-        }
+    const rows = document.querySelectorAll('#paymentTable tr:not(:first-child)');
+
+    if (!data) {
+      const initialData = Array.from(rows).map(row => {
+        const status = row.children[1].querySelector('.status');
+        return {
+          status: status.textContent,
+          statusClass: status.classList.contains('lunas') ? 'lunas' : 'belum',
+          nominal: row.children[2].textContent,
+          date: row.children[3].textContent
+        };
       });
+      set(tableRef, initialData);
+      return;
     }
+
+    rows.forEach((row, index) => {
+      const item = data[index];
+      if (item) {
+        const status = row.children[1].querySelector('.status');
+        status.textContent = item.status;
+        status.className = 'status ' + item.statusClass;
+        row.children[2].textContent = item.nominal;
+        row.children[3].textContent = item.date;
+      }
+    });
   });
 
   function saveToFirebase() {
@@ -222,6 +237,3 @@
     });
   });
 </script>
-
-</body>
-</html>

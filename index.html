@@ -78,7 +78,6 @@
 
   @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
   @keyframes popIn { from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;} }
-  @keyframes bounce { 0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-5px);}60%{transform:translateY(-3px);} }
 </style>
 </head>
 <body>
@@ -120,14 +119,10 @@
 </div>
 
 <script type="module">
-  // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
     apiKey: "AIzaSyA3kvSdkeaC4FzjF1Yz299z5NvTKzLAjW8",
     authDomain: "list-server-abidin.firebaseapp.com",
@@ -138,11 +133,6 @@
     appId: "1:554773600327:web:714ccf4053331e91fdf962",
     measurementId: "G-KTZFKJK355"
   };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
 
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
@@ -165,11 +155,10 @@
 
   const tableRef = ref(db, 'payments');
 
-  // 🔹 Perbaikan: Buat data awal jika database masih kosong
+  // Baca data realtime
   onValue(tableRef, (snapshot) => {
     const data = snapshot.val();
     const rows = document.querySelectorAll('#paymentTable tr:not(:first-child)');
-
     if (!data) {
       const initialData = Array.from(rows).map(row => {
         const status = row.children[1].querySelector('.status');
@@ -183,7 +172,6 @@
       set(tableRef, initialData);
       return;
     }
-
     rows.forEach((row, index) => {
       const item = data[index];
       if (item) {
@@ -245,5 +233,5 @@
     });
   });
 </script>
-
-
+</body>
+</html>

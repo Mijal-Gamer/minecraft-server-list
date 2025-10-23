@@ -20,16 +20,16 @@
     position: relative;
   }
 
-  /* ⚙️ Boot Animation */
+  /* BOOT SCREEN */
   #bootScreen {
     position: fixed;
     inset: 0;
-    background: linear-gradient(135deg, #0e1117 0%, #1a1d23 100%);
+    background: linear-gradient(135deg, #0e1117, #1a1d23);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    z-index: 9999;
     animation: fadeOutBoot 1s ease forwards;
     animation-delay: 3s;
   }
@@ -60,23 +60,9 @@
   }
   @keyframes bootLogoIn { to { opacity: 1; transform: translateY(0); } }
   @keyframes bootProgress { from { width: 0%; } to { width: 100%; } }
-  @keyframes fadeOutBoot { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+  @keyframes fadeOutBoot { to { opacity: 0; visibility: hidden; } }
 
-  body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.15), transparent 60%),
-      radial-gradient(circle at 80% 20%, rgba(0, 255, 100, 0.15), transparent 60%);
-    animation: floatGlow 10s ease-in-out infinite alternate;
-  }
-  @keyframes floatGlow {
-    0%,100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
-  }
-
-  /* ✨ LOGIN SECTION */
+  /* LOGIN SECTION */
   .login-section {
     display: flex;
     flex-direction: column;
@@ -84,10 +70,9 @@
     justify-content: center;
     min-height: 60vh;
     animation: fadeIn 1.5s ease;
-    z-index: 2;
   }
   .login-section h2 {
-    font-size: 2.4em;
+    font-size: 2.3em;
     margin-bottom: 25px;
     color: #e0e0e0;
     animation: glowText 2s infinite alternate;
@@ -96,68 +81,94 @@
     from { text-shadow: 0 0 5px #ff6b6b; }
     to { text-shadow: 0 0 20px #66bb6a; }
   }
-
   .role-button {
-    background: linear-gradient(45deg, #e53935, #ff6b6b);
-    color: white;
-    border: none;
-    padding: 15px 35px;
-    margin: 10px;
-    border-radius: 14px;
-    font-size: 1.2em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.3);
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(45deg,#e53935,#ff6b6b);
+    color:white;
+    border:none;
+    padding:15px 35px;
+    margin:10px;
+    border-radius:14px;
+    font-size:1.2em;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    box-shadow:0 6px 20px rgba(229,57,53,0.3);
   }
   .role-button.member {
-    background: linear-gradient(45deg, #43a047, #66bb6a);
-    box-shadow: 0 6px 20px rgba(67, 160, 71, 0.3);
+    background:linear-gradient(45deg,#43a047,#66bb6a);
+    box-shadow:0 6px 20px rgba(67,160,71,0.3);
   }
-  .role-button:hover { transform: scale(1.05) rotate(1deg); }
-  .role-button:active {
-    transform: scale(0.95);
-    animation: clickVibrate 0.3s ease;
-  }
+  .role-button:hover { transform:scale(1.05); }
 
-  /* Ripple */
-  .role-button::after {
-    content: "";
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 0; height: 0;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
-  }
-  .role-button:active::after {
-    width: 300px; height: 300px; opacity: 0;
-  }
-
-  @keyframes clickVibrate {
-    0%,100% { transform: scale(0.95); }
-    50% { transform: scale(1.02); }
-  }
-
-  /* 🌐 MAIN SECTION */
-  .main-content {
+  /* MODAL */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
     display: none;
-    flex-direction: column;
     align-items: center;
-    width: 100%;
-    animation: fadeIn 1s ease;
+    justify-content: center;
+    z-index: 9999;
   }
-  h1 {
-    background: linear-gradient(90deg, #ff5252, #ff8a65);
-    padding: 15px 30px;
-    border-radius: 16px;
+  .modal-content {
+    background: rgba(30,33,40,0.95);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255,255,255,0.1);
+    animation: popIn 0.4s ease;
+    position: relative;
+  }
+
+  /* Tombol silang */
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
     color: #fff;
-    box-shadow: 0 0 25px rgba(255,82,82,0.4);
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: 0.3s ease;
   }
+  .close-btn:hover { color: #ff6b6b; transform: scale(1.2); }
+
+  .input {
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 1em;
+    width: 220px;
+    font-size: 1em;
+    background-color: #ccc;
+    box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+    transition: 300ms ease-in-out;
+    margin-bottom: 10px;
+  }
+  .input:focus {
+    background-color: white;
+    transform: scale(1.05);
+    box-shadow: 13px 13px 100px #969696,
+               -13px -13px 100px #ffffff;
+  }
+
+  .modal-btn {
+    margin-top: 10px;
+    background: linear-gradient(45deg,#43a047,#66bb6a);
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  .modal-btn:hover { transform: scale(1.1); }
+
+  /* MAIN CONTENT */
+  .main-content { display:none; flex-direction:column; align-items:center; width:100%; animation: fadeIn 1s ease; }
+  h1 { background:linear-gradient(90deg,#ff5252,#ff8a65); padding:15px 30px; border-radius:16px; color:#fff; }
+
   table {
     margin-top: 25px;
     border-collapse: collapse;
@@ -168,45 +179,59 @@
     background: rgba(28,31,38,0.95);
     backdrop-filter: blur(15px);
     box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-    animation: fadeIn 1.5s ease;
   }
   th, td { padding: 15px; text-align: center; }
-  th {
-    background: linear-gradient(45deg, #272b33, #3a3f4b);
-    font-weight: 700;
-    color: #e0e0e0;
-  }
+  th { background: linear-gradient(45deg, #272b33, #3a3f4b); font-weight: 700; color: #e0e0e0; }
   tr:nth-child(even) { background-color: rgba(33,37,45,0.8); }
   tr:hover { background-color: rgba(45,50,60,0.9); transform: scale(1.01); }
 
-  .status { font-weight: bold; padding: 6px 14px; border-radius: 12px; color: white; cursor: pointer; }
-  .belum { background: linear-gradient(45deg, #e53935, #ff5252); }
-  .lunas { background: linear-gradient(45deg, #43a047, #66bb6a); }
+  .status { font-weight:bold; padding:6px 14px; border-radius:12px; color:white; cursor:pointer; }
+  .belum { background:linear-gradient(45deg,#e53935,#ff5252); }
+  .lunas { background:linear-gradient(45deg,#43a047,#66bb6a); }
 
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 </style>
 </head>
 <body>
 
-<!-- 🟢 Boot Animation -->
 <div id="bootScreen">
   <div id="bootLogo">Minecraft Server</div>
   <div class="bootBar"><div class="bootProgress"></div></div>
 </div>
 
-<!-- 🧩 Login -->
 <div class="login-section" id="loginSection">
   <h2>Pilih Peran Anda</h2>
   <button class="role-button member" onclick="selectRole('member')">Member</button>
-  <button class="role-button" onclick="selectRole('owner')">Owner</button>
+  <button class="role-button" onclick="openPasswordModal()">Owner</button>
 </div>
 
-<!-- 💻 Main Dashboard -->
+<!-- Modal Password Login -->
+<div class="modal" id="passwordModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('passwordModal')">×</button>
+    <h3>Masukkan Password Developer</h3>
+    <input type="password" id="devPassword" class="input" placeholder="Ketik password...">
+    <br>
+    <button class="modal-btn" onclick="checkPassword()">Masuk</button>
+  </div>
+</div>
+
+<!-- Modal Edit Pembayaran -->
+<div class="modal" id="editModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('editModal')">×</button>
+    <h3>Edit Pembayaran</h3>
+    <input type="text" id="nominalInput" class="input" placeholder="Nominal (contoh: 10K)">
+    <input type="text" id="tanggalInput" class="input" placeholder="Tanggal (DD/MM/YYYY)">
+    <button class="modal-btn" onclick="simpanEdit()">Simpan</button>
+  </div>
+</div>
+
 <div class="main-content" id="mainContent">
   <h1>Server Minecraft</h1>
-
   <table id="paymentTable">
-    <tr><th>Nama</th><th>Status</th><th>Nominal</th><th>Tanggal</th></tr>
+        <tr><th>Nama</th><th>Status</th><th>Nominal</th><th>Tanggal</th></tr>
     <tr><td>Mas Akhdan</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
     <tr><td>Mas Bima</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
     <tr><td>Mas Haffiyan NEKOHA</td><td><span class="status belum">Blm bayar</span></td><td>-</td><td>-</td></tr>
@@ -229,7 +254,6 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
   import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
 
   const firebaseConfig = {
@@ -239,47 +263,39 @@
     projectId: "list-server-abidin",
     storageBucket: "list-server-abidin.firebasestorage.app",
     messagingSenderId: "554773600327",
-    appId: "1:554773600327:web:714ccf4053331e91fdf962",
-    measurementId: "G-KTZFKJK355"
+    appId: "1:554773600327:web:714ccf4053331e91fdf962"
   };
 
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
   const db = getDatabase(app);
 
   let userRole = '';
+  let selectedRow = null;
 
-  window.selectRole = function(role) {
-    if (role === 'owner') {
-      const password = prompt('Masukkan password Owner:');
-      if (password !== '1324') {
-        alert('Password salah!');
-        return;
-      }
-    }
+  window.openPasswordModal = () => document.getElementById('passwordModal').style.display = 'flex';
+  window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+
+  window.checkPassword = () => {
+    const pass = document.getElementById('devPassword').value;
+    if (pass === '1234') {
+      closeModal('passwordModal');
+      userRole = 'owner';
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'flex';
+    } else alert('Password salah!');
+  };
+
+  window.selectRole = (role) => {
     userRole = role;
     document.getElementById('loginSection').style.display = 'none';
     document.getElementById('mainContent').style.display = 'flex';
   };
 
   const tableRef = ref(db, 'payments');
-
   onValue(tableRef, (snapshot) => {
     const data = snapshot.val();
     const rows = document.querySelectorAll('#paymentTable tr:not(:first-child)');
-    if (!data) {
-      const initialData = Array.from(rows).map(row => {
-        const status = row.children[1].querySelector('.status');
-        return {
-          status: status.textContent,
-          statusClass: status.classList.contains('lunas') ? 'lunas' : 'belum',
-          nominal: row.children[2].textContent,
-          date: row.children[3].textContent
-        };
-      });
-      set(tableRef, initialData);
-      return;
-    }
+    if (!data) return;
     rows.forEach((row, index) => {
       const item = data[index];
       if (item) {
@@ -308,38 +324,40 @@
 
   document.querySelectorAll('.status').forEach(el => {
     el.addEventListener('click', (event) => {
-      const status = event.target;
-      const row = status.closest('tr');
-      const nominalCell = row.children[2];
-      const dateCell = row.children[3];
-
-      if (userRole === 'member') {
-        alert('Sebagai Member, Anda hanya dapat melihat status. Hubungi Owner untuk perubahan.');
+      if (userRole !== 'owner') {
+        alert('Hanya owner yang dapat mengubah status!');
         return;
       }
-
-      if (status.classList.contains('belum')) {
-        const nominal = prompt('Masukkan nominal pembayaran (contoh: 10K):', '10K');
-        if (nominal === null) return;
-        const date = prompt('Masukkan tanggal pembayaran (DD/MM/YYYY):', new Date().toLocaleDateString('id-ID'));
-        if (date === null) return;
-
-        status.textContent = 'Lunas';
-        status.classList.remove('belum');
-        status.classList.add('lunas');
-        nominalCell.textContent = nominal;
-        dateCell.textContent = date;
-      } else if (status.classList.contains('lunas')) {
+      selectedRow = event.target.closest('tr');
+      const status = selectedRow.children[1].querySelector('.status');
+      if (status.classList.contains('lunas')) {
+        // Klik Lunas → ubah jadi Blm bayar
         status.textContent = 'Blm bayar';
-        status.classList.remove('lunas');
-        status.classList.add('belum');
-        nominalCell.textContent = '-';
-        dateCell.textContent = '-';
+        status.className = 'status belum';
+        selectedRow.children[2].textContent = '-';
+        selectedRow.children[3].textContent = '-';
+        saveToFirebase();
+      } else {
+        // Klik Blm bayar → buka modal isi data
+        document.getElementById('editModal').style.display = 'flex';
       }
-
-      saveToFirebase();
     });
   });
+
+  window.simpanEdit = function() {
+    const nominal = document.getElementById('nominalInput').value || '-';
+    const tanggal = document.getElementById('tanggalInput').value || '-';
+    const status = selectedRow.children[1].querySelector('.status');
+    const nominalCell = selectedRow.children[2];
+    const dateCell = selectedRow.children[3];
+
+    status.textContent = nominal === '-' ? 'Blm bayar' : 'Lunas';
+    status.className = 'status ' + (nominal === '-' ? 'belum' : 'lunas');
+    nominalCell.textContent = nominal;
+    dateCell.textContent = tanggal;
+    closeModal('editModal');
+    saveToFirebase();
+  };
 </script>
 </body>
 </html>
